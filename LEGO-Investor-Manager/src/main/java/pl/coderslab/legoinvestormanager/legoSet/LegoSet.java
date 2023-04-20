@@ -13,9 +13,9 @@ public class LegoSet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private long setNumber;
-    private String setName;
+    private Long id;
+    private Long legoSetNumber;
+    private String legoSetName;
     private String series;
     private int releaseYear;
     private int amountOfElements;

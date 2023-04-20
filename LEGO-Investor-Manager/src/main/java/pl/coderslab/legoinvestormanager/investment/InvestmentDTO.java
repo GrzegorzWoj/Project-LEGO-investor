@@ -9,14 +9,14 @@ import java.time.LocalDate;
 @Setter
 public class InvestmentDTO {
 
-    private long id;
+    private Long id;
     private double purchasePrice;
     private LocalDate purchaseDate;
     private double sellingPrice;
     private LocalDate sellingDate;
     private int possessionStatus;
     private String additionalInfo;
-    private long setNumber;
+    private long legoSetNumber;
     private double originalPrice;
     private double lowestCurrentPrice;
 

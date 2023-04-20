@@ -1,0 +1,40 @@
+GET http://localhost:8080/lego/2
+
+###
+POST http://localhost:8080/lego
+Content-Type: application/json
+
+{
+  "purchasePrice": 50.0,
+  "purchaseDate": "2021-11-11",
+  "sellingPrice": null,
+  "sellingDate": null,
+  "possessionStatus": 0,
+  "additionalInfo": "info2",
+  "portfolio": null,
+  "legoSet": {
+    "id": 1
+  }
+}
+
+
+###
+PUT http://localhost:8080/lego/3
+Content-Type: application/json
+
+{
+  "id": 3,
+  "purchasePrice": 999.0,
+  "purchaseDate": "2021-11-11",
+  "sellingPrice": 1499.0,
+  "sellingDate": "2022-09-10",
+  "possessionStatus": -1,
+  "additionalInfo": "sprzedane",
+  "portfolio": null,
+  "legoSet": {
+    "id": 2
+  }
+}
+
+###
+DELETE http://localhost:8080/lego/5

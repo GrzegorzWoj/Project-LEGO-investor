@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 public interface InvestmentMapper {
 //    InvestmentMapper INSTANCE = Mappers.getMapper(InvestmentMapper.class);
 
-    @Mapping(source = "legoSet.setNumber", target = "setNumber")
+    @Mapping(source = "legoSet.legoSetNumber", target = "legoSetNumber")
     @Mapping(source = "legoSet.originalPrice", target = "originalPrice")
     @Mapping(source = "legoSet.lowestCurrentPrice", target = "lowestCurrentPrice")
     InvestmentDTO mapToInvestmentDTO(Investment investment);
