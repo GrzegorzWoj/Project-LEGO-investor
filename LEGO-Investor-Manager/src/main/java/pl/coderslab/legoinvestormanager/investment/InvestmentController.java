@@ -4,11 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/lego")
+@RequestMapping("/investment")
 public class InvestmentController {
 
     private final InvestmentService service;
-
 
     public InvestmentController(InvestmentService service) {
         this.service = service;

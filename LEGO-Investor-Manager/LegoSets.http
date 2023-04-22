@@ -1,0 +1,37 @@
+GET http://localhost:8080/legoSet/3
+
+###
+POST http://localhost:8080/legoSet
+Content-Type: application/json
+
+{
+  "legoSetNumber": 42110,
+  "legoSetName": "Land Rover Defender",
+  "series": "Technic",
+  "releaseYear": 2019,
+  "amountOfElements": 2573,
+  "amountOfMinifigures": 0,
+  "originalPrice": 949.99,
+  "lowestCurrentPrice": 908.00
+}
+
+
+###
+PUT http://localhost:8080/legoSet/4
+Content-Type: application/json
+
+{
+  "id": 4,
+  "legoSetNumber": 31097,
+  "legoSetName": "Sklep zoologiczny i kawiarenka",
+  "series": "Creator 3w1",
+  "releaseYear": 2019,
+  "amountOfElements": 969,
+  "amountOfMinifigures": 3,
+  "originalPrice": 329.99,
+  "lowestCurrentPrice": null
+}
+
+
+###
+DELETE http://localhost:8080/legoSet/5
