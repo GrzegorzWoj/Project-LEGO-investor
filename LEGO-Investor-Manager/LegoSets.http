@@ -35,3 +35,13 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/legoSet/5
+
+###
+GET http://localhost:8080/legoSet/all
+
+
+###
+PUT http://localhost:8080/legoSet/price/2
+
+###
+PUT http://localhost:8080/legoSet/price/all

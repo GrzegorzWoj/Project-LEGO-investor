@@ -3,6 +3,8 @@ package pl.coderslab.legoinvestormanager.investment;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InvestmentService {
@@ -42,5 +44,11 @@ public class InvestmentService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<InvestmentDTO> readAllByPortfolioId(Long id) {
+        return repository.findAllByPortfolioId(id).stream()
+                .map(mapper::mapToInvestmentDTO)
+                .collect(Collectors.toList());
     }
 }

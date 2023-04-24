@@ -3,6 +3,8 @@ package pl.coderslab.legoinvestormanager.legoSet;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/legoSet")
 public class LegoSetController {
@@ -33,6 +35,23 @@ public class LegoSetController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLegoSet(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    @GetMapping("/all")
+    public List<LegoSetDTO> getAllLegoSets() {
+        return service.readAll();
+    }
+
+    @PutMapping("/price/{id}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public void updateLegoSetPrice(@PathVariable Long id) {
+        service.updateCurrentPrice(id);
+    }
+
+    @PutMapping("/price/all")
+    @ResponseStatus(HttpStatus.FOUND)
+    public void updateAllLegoSetPrices() {
+        service.readAll().forEach( l -> service.updateCurrentPrice(l.getId()));
     }
 
 }
