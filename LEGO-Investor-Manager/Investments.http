@@ -38,3 +38,7 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/investment/7
+
+
+###
+GET http://localhost:8080/investment/all/5

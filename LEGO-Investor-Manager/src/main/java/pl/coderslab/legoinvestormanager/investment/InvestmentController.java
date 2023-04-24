@@ -3,6 +3,8 @@ package pl.coderslab.legoinvestormanager.investment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/investment")
 public class InvestmentController {
@@ -39,4 +41,10 @@ public class InvestmentController {
     public void deleteInvestment(@PathVariable Long id) {
         service.delete(id);
     }
+
+    @GetMapping("/all/{id}")
+    public List<InvestmentDTO> getAllLegoSets(@PathVariable Long id) {
+        return service.readAllByPortfolioId(id);
+    }
+
 }

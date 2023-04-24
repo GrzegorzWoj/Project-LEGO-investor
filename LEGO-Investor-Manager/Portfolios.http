@@ -5,15 +5,10 @@ POST http://localhost:8080/portfolio
 Content-Type: application/json
 
 {
-  "name": "portfel1",
-  "description": "testowy portfel",
+  "name": "portfel5",
+  "description": "testowy portfel5",
   "user": {
-    "id": 4,
-    "login": "test",
-    "password": "testoweHasło",
-    "email": "testowyMail@mail.eu",
-    "firstName": "Testowy",
-    "lastName": "Ktoś"
+    "id": 2
   }
 }
 
@@ -40,3 +35,7 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/portfolio/4
+
+
+###
+GET http://localhost:8080/portfolio/all/2
