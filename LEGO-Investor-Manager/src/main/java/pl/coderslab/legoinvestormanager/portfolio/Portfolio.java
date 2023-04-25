@@ -5,7 +5,6 @@ import lombok.Setter;
 import pl.coderslab.legoinvestormanager.user.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Getter
@@ -16,7 +15,6 @@ public class Portfolio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty
     private String name;
     private String description;
     @ManyToOne

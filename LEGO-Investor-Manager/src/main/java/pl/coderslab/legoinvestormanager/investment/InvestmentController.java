@@ -3,6 +3,7 @@ package pl.coderslab.legoinvestormanager.investment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,12 +28,12 @@ public class InvestmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public InvestmentDTO createInvestment(@RequestBody Investment investment) {
+    public InvestmentDTO createInvestment(@Valid @RequestBody Investment investment) {
         return service.create(investment);
     }
 
     @PutMapping("/{id}")
-    public InvestmentDTO updateInvestment(@PathVariable Long id, @RequestBody Investment investment) {
+    public InvestmentDTO updateInvestment(@PathVariable Long id, @Valid @RequestBody Investment investment) {
         return service.update(id, investment);
     }
 
