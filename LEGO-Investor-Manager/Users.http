@@ -1,3 +1,4 @@
+###
 GET http://localhost:8080/user/2
 
 ###
@@ -5,27 +6,27 @@ POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "test1",
-  "password": "testoweHasło1",
-  "email": "testowyMail1@mail.eu",
-  "firstName": "Testowy1",
-  "lastName": "Ktoś1"
+  "login": "ab",
+  "password": "blablabla",
+  "email": "niepoprawnyMail.xd",
+  "firstName": "walidator",
+  "lastName": "walidacyjny"
 }
 
 
-###
+### edycja użytkownika
 PUT http://localhost:8080/user/2
 Content-Type: application/json
 
 {
   "id": 2,
-  "login": "nowyLogin",
+  "login": "no",
   "password": "noweHasło",
-  "email": "nowymail@onet.pl",
+  "email": "mail@onet.pl",
   "firstName": "nowy",
   "lastName": "ziomek"
 }
 
 
-###
+### usuwanie użytkownika
 DELETE http://localhost:8080/user/3

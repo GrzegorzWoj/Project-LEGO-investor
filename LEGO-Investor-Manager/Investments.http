@@ -5,13 +5,15 @@ POST http://localhost:8080/investment
 Content-Type: application/json
 
 {
-  "purchasePrice": 50.0,
-  "purchaseDate": "2021-11-11",
-  "sellingPrice": null,
-  "sellingDate": null,
-  "possessionStatus": 0,
-  "additionalInfo": "info2",
-  "portfolio": null,
+  "purchasePrice": 200.0,
+  "purchaseDate": "2022-11-11",
+  "sellingPrice": 250.0,
+  "sellingDate": "2023-04-25",
+  "possessionStatus": -1,
+  "additionalInfo": "Teskt krótszy niż 200 znaków",
+  "portfolio": {
+    "id": 1
+  },
   "legoSet": {
     "id": 1
   }

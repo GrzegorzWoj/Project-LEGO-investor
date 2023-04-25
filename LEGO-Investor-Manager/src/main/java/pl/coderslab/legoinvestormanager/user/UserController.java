@@ -3,6 +3,8 @@ package pl.coderslab.legoinvestormanager.user;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,12 +22,12 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO createUser(@RequestBody User user) {
+    public UserDTO createUser(@Valid @RequestBody User user) {
         return service.create(user);
     }
 
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable Long id, @RequestBody User user) {
+    public UserDTO updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
         return service.update(id, user);
     }
 

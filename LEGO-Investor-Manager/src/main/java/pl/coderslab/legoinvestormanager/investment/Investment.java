@@ -2,10 +2,12 @@ package pl.coderslab.legoinvestormanager.investment;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 import pl.coderslab.legoinvestormanager.legoSet.LegoSet;
 import pl.coderslab.legoinvestormanager.portfolio.Portfolio;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Entity
@@ -17,11 +19,17 @@ public class Investment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @PositiveOrZero
     private double purchasePrice;
+    @PastOrPresent
     private LocalDate purchaseDate;
+    @PositiveOrZero
     private double sellingPrice;
+    @PastOrPresent
     private LocalDate sellingDate;
+    @Range(min = -1, max = 1)
     private int possessionStatus;
+    @Size(max = 200)
     private String additionalInfo;
     @ManyToOne
     private Portfolio portfolio;
