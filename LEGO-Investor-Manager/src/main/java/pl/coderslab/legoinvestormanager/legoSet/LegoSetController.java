@@ -1,5 +1,10 @@
 package pl.coderslab.legoinvestormanager.legoSet;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,12 +47,22 @@ public class LegoSetController {
         return service.readAll();
     }
 
+    @Operation(summary = "Update price", description = "Update lowest price of LEGO Set with provided ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "successfully updated price",
+                    content = @Content(schema = @Schema(implementation = LegoSet.class))),
+            @ApiResponse(responseCode = "500", description = "LegoSet not found") })
     @PutMapping("/price/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public void updateLegoSetPrice(@PathVariable Long id) {
         service.updateCurrentPrice(id);
     }
 
+    @Operation(summary = "Update all prices", description = "Update lowest price of all LEGO Sets in database.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "successfully updated prices",
+                    content = @Content(schema = @Schema(implementation = LegoSet.class))),
+            @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.") })
     @PutMapping("/price/all")
     @ResponseStatus(HttpStatus.FOUND)
     public void updateAllLegoSetPrices() {

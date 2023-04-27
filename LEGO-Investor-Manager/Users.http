@@ -6,11 +6,11 @@ POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "ab",
-  "password": "blablabla",
-  "email": "niepoprawnyMail.xd",
-  "firstName": "walidator",
-  "lastName": "walidacyjny"
+  "login": "ghienek",
+  "password": "trudnehasło",
+  "email": "mójMail@mail.pl",
+  "firstName": "Grzegorz",
+  "lastName": "Wójcik"
 }
 
 
