@@ -1,46 +1,40 @@
-GET http://localhost:8080/investment/2
+GET http://localhost:8080/investment/12
 
-###
+### create
 POST http://localhost:8080/investment
 Content-Type: application/json
 
 {
-  "purchasePrice": 200.0,
-  "purchaseDate": "2022-11-11",
-  "sellingPrice": 250.0,
-  "sellingDate": "2023-04-25",
-  "possessionStatus": -1,
-  "additionalInfo": "Teskt krótszy niż 200 znaków",
-  "portfolio": {
-    "id": 1
-  },
-  "legoSet": {
-    "id": 1
-  }
+  "purchasePrice": 1200.0,
+  "purchaseDate": "2023-02-19",
+  "sellingPrice": 0,
+  "sellingDate": "2023-03-20",
+  "possessionStatus": 1,
+  "additionalInfo": "test",
+  "portfolioId": 3,
+  "legoSetId": 4
 }
 
 
-###
-PUT http://localhost:8080/investment/3
+### update
+PUT http://localhost:8080/investment/12
 Content-Type: application/json
 
 {
-  "id": 3,
-  "purchasePrice": 999.0,
-  "purchaseDate": "2021-11-11",
-  "sellingPrice": 1499.0,
-  "sellingDate": "2022-09-10",
-  "possessionStatus": -1,
-  "additionalInfo": "sprzedane",
-  "portfolio": null,
-  "legoSet": {
-    "id": 2
-  }
+  "id": 12,
+  "purchasePrice": 1200.0,
+  "purchaseDate": "2024-02-19",
+  "sellingPrice": 0,
+  "sellingDate": null,
+  "possessionStatus": 1,
+  "additionalInfo": null,
+  "portfolioId": 6,
+  "legoSetId": 6
 }
 
 ###
 DELETE http://localhost:8080/investment/7
 
 
-###
+### get all by portfolio id
 GET http://localhost:8080/investment/all/5

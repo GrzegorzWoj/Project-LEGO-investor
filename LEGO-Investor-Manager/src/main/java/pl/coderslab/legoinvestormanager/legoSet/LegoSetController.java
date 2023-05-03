@@ -27,13 +27,13 @@ public class LegoSetController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LegoSetDTO createLegoSet(@RequestBody LegoSet legoSet) {
-        return service.create(legoSet);
+    public LegoSetDTO createLegoSet(@RequestBody LegoSetDTO legoSetDTO) {
+        return service.create(legoSetDTO);
     }
 
     @PutMapping("/{id}")
-    public LegoSetDTO updateLegoSet(@PathVariable Long id, @RequestBody LegoSet legoSet) {
-        return service.update(id, legoSet);
+    public LegoSetDTO updateLegoSet(@PathVariable Long id, @RequestBody LegoSetDTO legoSetDTO) {
+        return service.update(id, legoSetDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -50,8 +50,8 @@ public class LegoSetController {
     @Operation(summary = "Update price", description = "Update lowest price of LEGO Set with provided ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "302", description = "successfully updated price",
-                    content = @Content(schema = @Schema(implementation = LegoSet.class))),
-            @ApiResponse(responseCode = "500", description = "LegoSet not found") })
+                    content = @Content(schema = @Schema(implementation = LegoSetDTO.class))),
+            @ApiResponse(responseCode = "500", description = "LegoSet not found")})
     @PutMapping("/price/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public void updateLegoSetPrice(@PathVariable Long id) {
@@ -61,12 +61,13 @@ public class LegoSetController {
     @Operation(summary = "Update all prices", description = "Update lowest price of all LEGO Sets in database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "302", description = "successfully updated prices",
-                    content = @Content(schema = @Schema(implementation = LegoSet.class))),
-            @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.") })
+                    content = @Content(schema = @Schema(implementation = LegoSetDTO.class))),
+            @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.")})
     @PutMapping("/price/all")
     @ResponseStatus(HttpStatus.FOUND)
     public void updateAllLegoSetPrices() {
-        service.readAll().forEach( l -> service.updateCurrentPrice(l.getId()));
+        service.readAll()
+                .forEach(l -> service.updateCurrentPrice(l.getId()));
     }
 
 }

@@ -1,35 +1,26 @@
-GET http://localhost:8080/portfolio/2
+GET http://localhost:8080/portfolio/8
 
 ###
 POST http://localhost:8080/portfolio
 Content-Type: application/json
 
 {
-  "name": "portfel5",
+  "name": "portfel8",
   "description": "testowy portfel5",
-  "user": {
-    "id": 2
-  }
+  "userId": 5
 }
 
 
 
 ###
-PUT http://localhost:8080/portfolio/3
+PUT http://localhost:8080/portfolio/8
 Content-Type: application/json
 
 {
-  "id": 3,
-  "name": "portfel11",
+  "id": 8,
+  "name": "portfel8",
   "description": "testowy portfel",
-  "user": {
-    "id": 1,
-    "login": "nowyLogin",
-    "password": "noweHasło",
-    "email": "nowymail@onet.pl",
-    "firstName": "nowy",
-    "lastName": "ziomek"
-  }
+  "userId": 6
 }
 
 
@@ -38,4 +29,4 @@ DELETE http://localhost:8080/portfolio/4
 
 
 ###
-GET http://localhost:8080/portfolio/all/2
+GET http://localhost:8080/portfolio/all/3

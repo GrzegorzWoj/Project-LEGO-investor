@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "LegoSet")
+@Table(name = "lego_sets")
 public class LegoSet {
 
     @Id

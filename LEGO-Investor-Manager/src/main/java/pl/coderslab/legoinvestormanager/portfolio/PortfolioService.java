@@ -18,22 +18,24 @@ public class PortfolioService {
     }
 
     public PortfolioDTO read(Long id) {
-        return mapper.mapToPortfolioDTO(repository.findById(id)
+        return mapper.mapPortfolioToDTO(repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Portfolio not found")));
     }
 
-    public PortfolioDTO create(Portfolio portfolio) {
-        return mapper.mapToPortfolioDTO(repository.save(portfolio));
+    public PortfolioDTO create(PortfolioDTO portfolioDTO) {
+        Portfolio portfolio = mapper.mapDTOToPortfolio(portfolioDTO);
+        return mapper.mapPortfolioToDTO(repository.save(portfolio));
     }
 
-    public PortfolioDTO update(Long id, Portfolio portfolio) {
+    public PortfolioDTO update(Long id, PortfolioDTO portfolioDTO) {
+        Portfolio portfolio = mapper.mapDTOToPortfolio(portfolioDTO);
         Portfolio portf = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Portfolio not found"));
         if (!portf.getId().equals(portfolio.getId())) {
             throw new IllegalArgumentException("Ids mismatch");
         }
         repository.save(portfolio);
-        return mapper.mapToPortfolioDTO(portfolio);
+        return mapper.mapPortfolioToDTO(portfolio);
     }
 
     public void delete(Long id) {
@@ -43,7 +45,7 @@ public class PortfolioService {
 
     public List<PortfolioDTO> readAllByUserId(Long id) {
         return repository.findAllByUserId(id).stream()
-                .map(mapper::mapToPortfolioDTO)
+                .map(mapper::mapPortfolioToDTO)
                 .collect(Collectors.toList());
     }
 }

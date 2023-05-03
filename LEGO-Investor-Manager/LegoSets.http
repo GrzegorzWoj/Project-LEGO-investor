@@ -17,11 +17,11 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:8080/legoSet/4
+PUT http://localhost:8080/legoSet/7
 Content-Type: application/json
 
 {
-  "id": 4,
+  "id": 7,
   "legoSetNumber": 31097,
   "legoSetName": "Sklep zoologiczny i kawiarenka",
   "series": "Creator 3w1",
@@ -34,7 +34,7 @@ Content-Type: application/json
 
 
 ###
-DELETE http://localhost:8080/legoSet/5
+DELETE http://localhost:8080/legoSet/7
 
 ###
 GET http://localhost:8080/legoSet/all
