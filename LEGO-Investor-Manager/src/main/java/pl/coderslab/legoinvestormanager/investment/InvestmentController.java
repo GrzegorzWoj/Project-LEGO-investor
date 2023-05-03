@@ -28,13 +28,13 @@ public class InvestmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public InvestmentDTO createInvestment(@Valid @RequestBody Investment investment) {
-        return service.create(investment);
+    public InvestmentDTO createInvestment(@Valid @RequestBody InvestmentDTO investmentDTO) {
+        return service.create(investmentDTO);
     }
 
     @PutMapping("/{id}")
-    public InvestmentDTO updateInvestment(@PathVariable Long id, @Valid @RequestBody Investment investment) {
-        return service.update(id, investment);
+    public InvestmentDTO updateInvestment(@PathVariable Long id, @Valid @RequestBody InvestmentDTO investmentDTO) {
+        return service.update(id, investmentDTO);
     }
 
     @DeleteMapping("/{id}")

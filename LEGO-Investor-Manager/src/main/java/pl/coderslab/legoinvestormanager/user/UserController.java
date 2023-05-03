@@ -22,13 +22,13 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO createUser(@Valid @RequestBody User user) {
-        return service.create(user);
+    public UserDTO createUser(@Valid @RequestBody UserDTO userDTO) {
+        return service.create(userDTO);
     }
 
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
-        return service.update(id, user);
+    public UserDTO updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) {
+        return service.update(id, userDTO);
     }
 
     @DeleteMapping("/{id}")

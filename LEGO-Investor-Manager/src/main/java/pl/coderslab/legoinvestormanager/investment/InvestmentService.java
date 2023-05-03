@@ -18,7 +18,7 @@ public class InvestmentService {
     }
 
     public InvestmentDTO read(Long id) {
-        return mapper.mapToInvestmentDTO(repository.findById(id)
+        return mapper.mapInvestmentToDTO(repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Investment not found")));
     }
 
@@ -27,19 +27,21 @@ public class InvestmentService {
 //                .orElseThrow(() -> new EntityNotFoundException("Investment not found"));
 //    }
 
-    public InvestmentDTO create(Investment investment) {
-//        repository.save(investment);
-        return mapper.mapToInvestmentDTO(repository.save(investment));
+    public InvestmentDTO create(InvestmentDTO investmentDTO) {
+        Investment investment = mapper.mapDTOToInvestment(investmentDTO);
+        //        repository.save(investment);
+        return mapper.mapInvestmentToDTO(repository.save(investment));
     }
 
-    public InvestmentDTO update(Long id, Investment investment) {
-        Investment investm = repository.findById(id)
+    public InvestmentDTO update(Long id, InvestmentDTO investmentDTO) {
+        Investment investment = mapper.mapDTOToInvestment(investmentDTO);
+        Investment investmFromId = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Investment not found"));
-        if (!investm.getId().equals(investment.getId())) {
+        if (!investmFromId.getId().equals(investment.getId())) {
             throw new IllegalArgumentException("Ids mismatch");
         }
         repository.save(investment);
-        return mapper.mapToInvestmentDTO(investment);
+        return mapper.mapInvestmentToDTO(investment);
     }
 
     public void delete(Long id) {
@@ -48,7 +50,7 @@ public class InvestmentService {
 
     public List<InvestmentDTO> readAllByPortfolioId(Long id) {
         return repository.findAllByPortfolioId(id).stream()
-                .map(mapper::mapToInvestmentDTO)
+                .map(mapper::mapInvestmentToDTO)
                 .collect(Collectors.toList());
     }
 }

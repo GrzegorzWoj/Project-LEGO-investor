@@ -17,22 +17,24 @@ public class UserService {
     }
 
     public UserDTO read(Long id) {
-        return mapper.mapToUserDTO(repository.findById(id)
+        return mapper.mapUserToDTO(repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found")));
     }
 
-    public UserDTO create(User user) {
-        return mapper.mapToUserDTO(repository.save(user));
+    public UserDTO create(UserDTO userDTO) {
+        User user = mapper.mapDTOToUser(userDTO);
+        return mapper.mapUserToDTO(repository.save(user));
     }
 
-    public UserDTO update(Long id, User user) {
+    public UserDTO update(Long id, UserDTO userDTO) {
+        User user = mapper.mapDTOToUser(userDTO);
         User usr = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         if (!usr.getId().equals(user.getId())) {
             throw new IllegalArgumentException("Ids mismatch");
         }
         repository.save(user);
-        return mapper.mapToUserDTO(user);
+        return mapper.mapUserToDTO(user);
     }
 
     public void delete(Long id) {

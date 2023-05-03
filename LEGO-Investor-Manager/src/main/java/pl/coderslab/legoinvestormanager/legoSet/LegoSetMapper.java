@@ -5,5 +5,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface LegoSetMapper {
 
-    LegoSetDTO mapToLegoSetDTO(LegoSet legoSet);
+    LegoSetDTO mapLegoSetToDTO(LegoSet legoSet);
+
+    LegoSet mapDTOToLegoSet(LegoSetDTO legoSetDTO);
 }

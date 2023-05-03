@@ -22,13 +22,13 @@ public class PortfolioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PortfolioDTO createPortfolio(@RequestBody Portfolio portfolio) {
-        return service.create(portfolio);
+    public PortfolioDTO createPortfolio(@RequestBody PortfolioDTO portfolioDTO) {
+        return service.create(portfolioDTO);
     }
 
     @PutMapping("/{id}")
-    public PortfolioDTO updatePortfolio(@PathVariable Long id, @RequestBody Portfolio portfolio) {
-        return service.update(id, portfolio);
+    public PortfolioDTO updatePortfolio(@PathVariable Long id, @RequestBody PortfolioDTO portfolioDTO) {
+        return service.update(id, portfolioDTO);
     }
 
     @DeleteMapping("/{id}")

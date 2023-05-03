@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Getter
 @Setter
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Schema(description = "Unique identifier of the User.",
