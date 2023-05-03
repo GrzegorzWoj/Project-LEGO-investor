@@ -37,4 +37,4 @@ DELETE http://localhost:8080/investment/7
 
 
 ### get all by portfolio id
-GET http://localhost:8080/investment/all/5
+GET http://localhost:8080/investment/all/8

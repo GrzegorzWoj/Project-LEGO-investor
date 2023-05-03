@@ -3,6 +3,8 @@ package pl.coderslab.legoinvestormanager.legoSet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
+import pl.coderslab.legoinvestormanager.investment.InvestmentDTO;
+import pl.coderslab.legoinvestormanager.investment.InvestmentService;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
@@ -13,11 +15,13 @@ import java.util.stream.Collectors;
 public class LegoSetService {
 
     private final LegoSetRepository repository;
+    private final InvestmentService investmentService;
     private final LegoSetMapper mapper;
 
 
-    public LegoSetService(LegoSetRepository repository, LegoSetMapper mapper) {
+    public LegoSetService(LegoSetRepository repository, InvestmentService investmentService, LegoSetMapper mapper) {
         this.repository = repository;
+        this.investmentService = investmentService;
         this.mapper = mapper;
     }
 
@@ -52,19 +56,32 @@ public class LegoSetService {
                 .collect(Collectors.toList());
     }
 
-    public void updateCurrentPrice(Long id) {
+    public List<LegoSetDTO> readAllByPortfolioId(Long id) {
+        List<InvestmentDTO> investmentDTOList = investmentService.readAllByPortfolioId(id);
+        return investmentDTOList.stream()
+                .map(l -> read(l.getLegoSetId()))
+//                .map(l -> mapper.mapLegoSetToDTO(repository.findById(l.getLegoSetId())
+//                        .orElseThrow(() -> new EntityNotFoundException("LegoSet not found"))))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public String updateCurrentPrice(Long id) {
         LegoSet legoSet = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("LegoSet not found"));
-        String url = "https://promoklocki.pl/" + legoSet.getLegoSetNumber();
+        Long legoSetNumber = legoSet.getLegoSetNumber();
+        String url = "https://promoklocki.pl/" + legoSetNumber;
         try {
             Document doc = Jsoup.connect(url)
                     .userAgent("Mozilla" /* /5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0"*/)
                     .get();
             String price = doc.select("div.col-md-6 dd a.bprice").text();
-            legoSet.setLowestCurrentPrice(Double.parseDouble(price.substring(0, price.length()-2).replace(',', '.')));
+            legoSet.setLowestCurrentPrice(Double.parseDouble(price.substring(0, price.length() - 2).replace(',', '.')));
             repository.save(legoSet);
+            return legoSetNumber + " - zaktualizowano cenę";
         } catch (IOException e) {
-            System.out.println("******************** Nie znaleziono źródła ceny: " + url + " *******************");
+            return legoSetNumber + " - Nie znaleziono źródła ceny: " + url;
+//            FOR THE FUTURE: content of exception should be saved in log files
 //            throw new NotFoundException(e.getMessage());
         }
     }

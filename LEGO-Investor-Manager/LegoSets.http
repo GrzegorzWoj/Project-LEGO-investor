@@ -40,8 +40,11 @@ DELETE http://localhost:8080/legoSet/7
 GET http://localhost:8080/legoSet/all
 
 
-###
+### update price of one set
 PUT http://localhost:8080/legoSet/price/2
 
-###
+### update price of all sets
 PUT http://localhost:8080/legoSet/price/all
+
+### update price of all sets in portfolio
+PUT http://localhost:8080/legoSet/price/all/5

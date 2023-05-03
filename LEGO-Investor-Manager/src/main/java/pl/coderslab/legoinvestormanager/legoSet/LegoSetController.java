@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/legoSet")
@@ -54,8 +55,8 @@ public class LegoSetController {
             @ApiResponse(responseCode = "500", description = "LegoSet not found")})
     @PutMapping("/price/{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public void updateLegoSetPrice(@PathVariable Long id) {
-        service.updateCurrentPrice(id);
+    public String updateLegoSetPrice(@PathVariable Long id) {
+        return service.updateCurrentPrice(id);
     }
 
     @Operation(summary = "Update all prices", description = "Update lowest price of all LEGO Sets in database.")
@@ -65,9 +66,23 @@ public class LegoSetController {
             @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.")})
     @PutMapping("/price/all")
     @ResponseStatus(HttpStatus.FOUND)
-    public void updateAllLegoSetPrices() {
-        service.readAll()
-                .forEach(l -> service.updateCurrentPrice(l.getId()));
+    public List<String> updateAllLegoSetPrices() {
+        return service.readAll().stream()
+                .map(l -> service.updateCurrentPrice(l.getId()))
+                .collect(Collectors.toList());
+    }
+
+    @Operation(summary = "Update prices in portfolio", description = "Update lowest price of all LEGO Sets in portfolio.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "successfully updated prices",
+                    content = @Content(schema = @Schema(implementation = LegoSetDTO.class))),
+            @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.")})
+    @PutMapping("/price/all/{id}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<String> updateAllByPortfolioId(@PathVariable Long id) {
+        return service.readAllByPortfolioId(id).stream()
+                .map(l -> service.updateCurrentPrice(l.getId()))
+                .collect(Collectors.toList());
     }
 
 }
