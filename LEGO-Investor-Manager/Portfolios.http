@@ -28,5 +28,11 @@ Content-Type: application/json
 DELETE http://localhost:8080/portfolio/4
 
 
-###
+### get all portfolio of user
 GET http://localhost:8080/portfolio/all/3
+
+### get current value of portfolio
+GET http://localhost:8080/portfolio/1/value
+
+### get profit gain from portfolio
+GET http://localhost:8080/portfolio/5/profit
