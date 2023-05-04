@@ -53,7 +53,7 @@ public class InvestmentController {
         if (service.read(id).getPossessionStatus() != -1) {
             return "Zestaw nie został jeszcze sprzedany.";
         }
-        return "Zysk ze sprzedaży: " + service.income(id) + " zł \n" +
+        return "Zysk ze sprzedaży: " + Math.round(service.income(id) * 100.0) / 100.0 + " zł \n" +
                "Stopa zwrotu: " + Math.round(service.returnRate(id) * 100.0) / 100.0 + " % \n" +
                "Roczna stopa zwrotu: " + Math.round(service.annualReturnRate(id) * 100.0) / 100.0 + " %";
     }

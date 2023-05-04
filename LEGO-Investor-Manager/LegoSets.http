@@ -41,10 +41,10 @@ GET http://localhost:8080/legoSet/all
 
 
 ### update price of one set
-PUT http://localhost:8080/legoSet/price/2
+PUT http://localhost:8080/legoSet/2/price
 
 ### update price of all sets
-PUT http://localhost:8080/legoSet/price/all
+PUT http://localhost:8080/legoSet/all/price
 
 ### update price of all sets in portfolio
-PUT http://localhost:8080/legoSet/price/all/5
+PUT http://localhost:8080/legoSet/all/5/price

@@ -38,8 +38,18 @@ public class PortfolioController {
     }
 
     @GetMapping("/all/{id}")
-    public List<PortfolioDTO> getAllLegoSets(@PathVariable Long id) {
+    public List<PortfolioDTO> getAllUserPortfolios(@PathVariable Long id) {
         return service.readAllByUserId(id);
+    }
+
+    @GetMapping("/{id}/value")
+    public double getPortfolioCurrentValue(@PathVariable Long id) {
+        return service.currentInvestmentValue(id);
+    }
+
+    @GetMapping("/{id}/profit")
+    public double getPortfolioProfits(@PathVariable Long id) {
+        return service.currentPortfolioProfit(id);
     }
 
 }
