@@ -8,4 +8,6 @@ public interface InvestmentRepository extends JpaRepository<Investment, Long> {
 
     List<Investment> findAllByPortfolioId(Long id);
 
+    List<Investment> findAllByPortfolioIdAndPossessionStatus(Long id, int status);
+
 }

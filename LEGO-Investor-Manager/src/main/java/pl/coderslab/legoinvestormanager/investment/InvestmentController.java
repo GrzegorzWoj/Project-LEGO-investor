@@ -44,8 +44,18 @@ public class InvestmentController {
     }
 
     @GetMapping("/all/{id}")
-    public List<InvestmentDTO> getAllLegoSets(@PathVariable Long id) {
+    public List<InvestmentDTO> getAllInvestmentsInPortfolio(@PathVariable Long id) {
         return service.readAllByPortfolioId(id);
+    }
+
+    @GetMapping("/{id}/profit")
+    public String getInvestmentProfit(@PathVariable Long id) {
+        if (service.read(id).getPossessionStatus() != -1) {
+            return "Zestaw nie został jeszcze sprzedany.";
+        }
+        return "Zysk ze sprzedaży: " + service.income(id) + " zł \n" +
+               "Stopa zwrotu: " + Math.round(service.returnRate(id) * 100.0) / 100.0 + " % \n" +
+               "Roczna stopa zwrotu: " + Math.round(service.annualReturnRate(id) * 100.0) / 100.0 + " %";
     }
 
 }
