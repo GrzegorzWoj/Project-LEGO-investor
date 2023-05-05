@@ -7,7 +7,9 @@ import pl.coderslab.legoinvestormanager.legoSet.LegoSet;
 import pl.coderslab.legoinvestormanager.portfolio.Portfolio;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
