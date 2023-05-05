@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
 
@@ -39,13 +39,32 @@ class InvestmentControllerTest {
         mockMvc.perform(get("/investment/5"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(5)));
+
     }
 
     @Test
-    void createInvestment() {
+    void createInvestment() throws Exception {
         //given
+        InvestmentDTO investment1 = new InvestmentDTO();
+//        investment1.setId(null);
+        investment1.setPossessionStatus(1);
+        investment1.setAdditionalInfo("test_string");
+        InvestmentDTO investment2 = new InvestmentDTO();
+        investment2.setId(1L);
+        investment2.setPossessionStatus(1);
+        investment2.setAdditionalInfo("test_string");
         //when
+        when(service.create(investment1)).thenReturn(investment2);
         //then
+        mockMvc.perform(post("/investment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(investment1)))
+
+                .andExpect(status().isCreated());
+//                .andExpect(jsonPath("$.id", is(1)))
+//                .andExpect(jsonPath("$.possessionStatus", is(1)))
+//                .andExpect(jsonPath("$.additionalInfo", is("test_string")));
+//                .andReturn().getResponse().getContentAsString();
     }
 
     @Test
@@ -64,6 +83,7 @@ class InvestmentControllerTest {
         //then
         mockMvc.perform(delete("/investment/5"))
                 .andExpect(status().isNoContent());
+        verify(service, times(1)).delete(5L);
     }
 
     @Test
