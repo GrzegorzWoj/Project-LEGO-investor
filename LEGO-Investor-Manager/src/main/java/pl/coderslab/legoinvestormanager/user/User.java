@@ -3,6 +3,7 @@ package pl.coderslab.legoinvestormanager.user;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -28,11 +29,18 @@ public class User {
     @Schema(description = "Password used by the user to log into the app.",
             example = "hardPassword1!", required = true)
     private String password;
+    private String salt;
     @Schema(description = "Email of the User. Should be correctly formatted e-mail.",
             example = "sample_mail@email.com", required = true)
     @Email
     private String email;
     private String firstName;
     private String lastName;
+
+
+    protected void hashPassword() {
+        this.salt = BCrypt.gensalt();
+        this.password = (BCrypt.hashpw(this.password, this.salt));
+    }
 
 }
