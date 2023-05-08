@@ -1,8 +1,11 @@
 package pl.coderslab.legoinvestormanager.user;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -23,6 +26,7 @@ public class UserService {
 
     public UserDTO create(UserDTO userDTO) {
         User user = mapper.mapDTOToUser(userDTO);
+        user.hashPassword();
         return mapper.mapUserToDTO(repository.save(user));
     }
 
@@ -33,6 +37,7 @@ public class UserService {
         if (!usr.getId().equals(user.getId())) {
             throw new IllegalArgumentException("Ids mismatch");
         }
+        user.hashPassword();
         repository.save(user);
         return mapper.mapUserToDTO(user);
     }
@@ -40,5 +45,12 @@ public class UserService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    public List<UserDTO> readAll() {
+        return repository.findAll().stream()
+                .map(mapper::mapUserToDTO)
+                .collect(Collectors.toList());
+    }
+
 
 }

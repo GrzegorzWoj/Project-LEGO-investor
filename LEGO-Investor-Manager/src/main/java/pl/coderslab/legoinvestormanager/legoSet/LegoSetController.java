@@ -79,7 +79,7 @@ public class LegoSetController {
             @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.")})
     @PutMapping("/all/{id}/price")
     @ResponseStatus(HttpStatus.FOUND)
-    public List<String> updateAllByPortfolioId(@PathVariable Long id) {
+    public List<String> updateAllPricesByPortfolioId(@PathVariable Long id) {
         return service.readAllByPortfolioId(id).stream()
                 .map(l -> service.updateCurrentPrice(l.getId()))
                 .collect(Collectors.toList());
