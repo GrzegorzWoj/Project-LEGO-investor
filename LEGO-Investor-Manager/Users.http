@@ -1,14 +1,15 @@
 ###
 GET http://localhost:8080/user/8
+#Authorization: Basic user 1ed8dcbc-0cb1-4828-b925-549656badf52
 
 ###
 POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "test_hashowania",
+  "login": "test123",
   "password": "test",
-  "email": "mail@mail.pl",
+  "email": "mail123@mail.pl",
   "firstName": "Tester",
   "lastName": "Hashowania"
 }
@@ -29,7 +30,7 @@ Content-Type: application/json
 
 
 ### usuwanie użytkownika
-DELETE http://localhost:8080/user/3
+DELETE http://localhost:8080/user/12
 
 
 ### pobieranie wszystkich użytkowników
