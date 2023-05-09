@@ -1,5 +1,5 @@
 ###
-GET http://localhost:8080/user/8
+GET http://localhost:8080/user/13
 #Authorization: Basic user 1ed8dcbc-0cb1-4828-b925-549656badf52
 
 ###
@@ -7,30 +7,30 @@ POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "test123",
+  "login": "user3",
   "password": "test",
-  "email": "mail123@mail.pl",
-  "firstName": "Tester",
-  "lastName": "Hashowania"
+  "email": "user3@mail.pl",
+  "firstName": "user3",
+  "lastName": "user"
 }
 
 
 ### edycja użytkownika
-PUT http://localhost:8080/user/8
+PUT http://localhost:8080/user/17
 Content-Type: application/json
 
 {
-  "id": 8,
+  "id": 17,
   "login": "test2",
-  "password": "test_hash123!",
-  "email": "mail@onet.pl",
+  "password": "test1",
+  "email": "mail2@onet.pl",
   "firstName": "tester",
   "lastName": "zmian"
 }
 
 
 ### usuwanie użytkownika
-DELETE http://localhost:8080/user/12
+DELETE http://localhost:8080/user/19
 
 
 ### pobieranie wszystkich użytkowników
@@ -38,5 +38,20 @@ GET http://localhost:8080/user/all
 
 
 ### checking password (just to test for now)
-GET http://localhost:8080/user/pass/8/test_hash123!
+GET http://localhost:8080/user/pass/5/test
 
+
+### log-in
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "login": "user1",
+  "password": "test"
+}
+
+### who is logged?
+GET http://localhost:8080/auth/whoIsLogged
+
+### log-out
+POST http://localhost:8080/auth/logout

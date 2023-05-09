@@ -24,14 +24,12 @@ public class CustomUserDetailService implements UserDetailsService {
         User user = userRepository.findByLogin(login).orElseThrow(() ->
                         new UsernameNotFoundException("User not found with login: "+ login));
 
-//        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName());
-
         Set<GrantedAuthority> authorities = user
-                .getRole()
+                .getRoles()
                 .stream()
                 .map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toSet());
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+        return new org.springframework.security.core.userdetails.User(user.getLogin(),
                 user.getPassword(),
                 authorities);
     }

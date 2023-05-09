@@ -2,6 +2,7 @@ package pl.coderslab.legoinvestormanager.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.legoinvestormanager.role.Role;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+//@NoArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -40,16 +42,25 @@ public class User {
     private String email;
     private String firstName;
     private String lastName;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> role;
+    private Set<Role> roles;
+
 
 
     protected void hashPassword() {
         this.salt = BCrypt.gensalt();
         this.password = (BCrypt.hashpw(this.password, this.salt));
     }
+//TODO @PreRemove / @PreUpdate / @PrePersist (probably do not need code below)
+//    protected User(String login, String password, Set<Role> roles) {
+//        this.login = login;
+//        this.password = password;
+//        this.roles = roles;
+//    }
+
+
 
 }
