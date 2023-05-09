@@ -1,5 +1,6 @@
 package pl.coderslab.legoinvestormanager.user;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.legoinvestormanager.role.Role;
 import pl.coderslab.legoinvestormanager.role.RoleRepository;
@@ -8,7 +9,6 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,12 +17,14 @@ public class UserService {
     private final UserRepository repository;
     private final RoleRepository roleRepository;
     private final UserMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository repository, RoleRepository roleRepository, UserMapper mapper) {
+    public UserService(UserRepository repository, RoleRepository roleRepository, UserMapper mapper, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.roleRepository = roleRepository;
         this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDTO read(Long id) {
@@ -32,9 +34,9 @@ public class UserService {
 
     public UserDTO create(UserDTO userDTO) {
         User user = mapper.mapDTOToUser(userDTO);
-        user.hashPassword();
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRole(new HashSet<>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         repository.save(user);
         return mapper.mapUserToDTO(user);
     }
@@ -46,12 +48,16 @@ public class UserService {
         if (!usr.getId().equals(user.getId())) {
             throw new IllegalArgumentException("Ids mismatch");
         }
-        user.hashPassword();
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));;
+        user.setRoles(usr.getRoles());
         repository.save(user);
         return mapper.mapUserToDTO(user);
     }
 
     public void delete(Long id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
         repository.deleteById(id);
     }
 
