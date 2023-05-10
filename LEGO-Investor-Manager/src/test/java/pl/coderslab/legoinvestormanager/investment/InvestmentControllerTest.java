@@ -28,6 +28,8 @@ class InvestmentControllerTest {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+
+    //TODO: Add authentication to every tests. Check why testing GET methods also doesn`t work.
     @Test
     void getInvestment() throws Exception {
         //given
@@ -67,12 +69,12 @@ class InvestmentControllerTest {
 //                .andReturn().getResponse().getContentAsString();
     }
 
-    @Test
-    void updateInvestment() {
-        //given
-        //when
-        //then
-    }
+//    @Test
+//    void updateInvestment() {
+//        //given
+//        //when
+//        //then
+//    }
 
     @Test
     void deleteInvestment() throws Exception {
@@ -108,7 +110,7 @@ class InvestmentControllerTest {
                 .andExpect(jsonPath("$[1].portfolioId", is(2)));
     }
 
-    @Test
-    void getInvestmentProfit() {
-    }
+//    @Test
+//    void getInvestmentProfit() {
+//    }
 }
