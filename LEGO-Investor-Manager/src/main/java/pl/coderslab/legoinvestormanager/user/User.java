@@ -2,17 +2,13 @@ package pl.coderslab.legoinvestormanager.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import pl.coderslab.legoinvestormanager.role.Role;
-import pl.coderslab.legoinvestormanager.role.RoleRepository;
 
 import javax.persistence.*;
-import javax.security.sasl.AuthenticationException;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
