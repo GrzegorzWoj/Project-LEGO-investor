@@ -48,7 +48,7 @@ public class UserService {
         if (!usr.getId().equals(user.getId())) {
             throw new IllegalArgumentException("Ids mismatch");
         }
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));;
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setRoles(usr.getRoles());
         user.setLogin(usr.getLogin());
         repository.save(user);
@@ -56,9 +56,8 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        User user = repository.findById(id)
+        repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
-
         repository.deleteById(id);
     }
 

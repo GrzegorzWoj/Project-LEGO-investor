@@ -1,6 +1,5 @@
 package pl.coderslab.legoinvestormanager.user;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
