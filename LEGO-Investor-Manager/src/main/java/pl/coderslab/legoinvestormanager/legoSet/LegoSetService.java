@@ -86,6 +86,29 @@ public class LegoSetService {
         }
     }
 
+    //TODO change createLegoSet method to upload all lego set information from url
+//    private LegoSetDTO loadLegoSetDataFromUrl(String legoSetNumber) {
+//        LegoSetDTO legoSet = new LegoSetDTO();
+//        String url = "https://promoklocki.pl/" + legoSetNumber;
+//        try {
+//            Document doc = Jsoup.connect(url)
+//                    .userAgent("Mozilla" /* /5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0"*/)
+//                    .get();
+//            String price = doc.select("div.col-md-6 dd a.bprice").text();
+//            legoSet.setLowestCurrentPrice(Double.parseDouble(price.substring(0, price.length() - 2).replace(',', '.')));
+//            legoSet.setLegoSetName();
+//            legoSet.setSeries();
+//            legoSet.setReleaseYear();
+//            legoSet.setAmountOfElements();
+//            legoSet.setAmountOfMinifigures();
+//            legoSet.setOriginalPrice();
+//            legoSet.setLowestCurrentPrice();
+//            return legoSet;
+//        } catch (IOException e) {
+//            return legoSet;
+//        }
+//    }
+
 
 }
 

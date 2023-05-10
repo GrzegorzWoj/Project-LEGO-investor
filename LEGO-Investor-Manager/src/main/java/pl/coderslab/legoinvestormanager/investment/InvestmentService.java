@@ -1,6 +1,7 @@
 package pl.coderslab.legoinvestormanager.investment;
 
 import org.springframework.stereotype.Service;
+import pl.coderslab.legoinvestormanager.portfolio.PortfolioRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.temporal.ChronoUnit;
@@ -11,10 +12,12 @@ import java.util.stream.Collectors;
 public class InvestmentService {
 
     private final InvestmentRepository repository;
+    private final PortfolioRepository portfolioRepository;
     private final InvestmentMapper mapper;
 
-    public InvestmentService(InvestmentRepository repository, InvestmentMapper mapper) {
+    public InvestmentService(InvestmentRepository repository, PortfolioRepository portfolioRepository, InvestmentMapper mapper) {
         this.repository = repository;
+        this.portfolioRepository = portfolioRepository;
         this.mapper = mapper;
     }
 
@@ -23,22 +26,18 @@ public class InvestmentService {
                 .orElseThrow(() -> new EntityNotFoundException("Investment not found")));
     }
 
-//    public Investment readNoDTO(Long id) {
-//        return repository.findById(id)
-//                .orElseThrow(() -> new EntityNotFoundException("Investment not found"));
-//    }
-
     public InvestmentDTO create(InvestmentDTO investmentDTO) {
         Investment investment = mapper.mapDTOToInvestment(investmentDTO);
-        //        repository.save(investment);
+        investment.setPortfolio(portfolioRepository.findById(investmentDTO.getPortfolioId())
+                .orElseThrow(() -> new EntityNotFoundException("Portfolio not found")));
         return mapper.mapInvestmentToDTO(repository.save(investment));
     }
 
     public InvestmentDTO update(Long id, InvestmentDTO investmentDTO) {
         Investment investment = mapper.mapDTOToInvestment(investmentDTO);
-        Investment investmFromId = repository.findById(id)
+        Investment investm = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Investment not found"));
-        if (!investmFromId.getId().equals(investment.getId())) {
+        if (!investm.getId().equals(investment.getId())) {
             throw new IllegalArgumentException("Ids mismatch");
         }
         repository.save(investment);

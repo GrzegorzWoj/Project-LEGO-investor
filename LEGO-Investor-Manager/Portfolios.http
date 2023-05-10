@@ -1,38 +1,39 @@
+### read portfolio by id
 GET http://localhost:8080/portfolio/8
 
-###
+### create potrfolio
 POST http://localhost:8080/portfolio
 Content-Type: application/json
 
 {
-  "name": "portfel8",
-  "description": "testowy portfel5",
-  "userId": 5
+  "name": "portfel",
+  "description": "testowy portfel",
+  "userId": 13
 }
 
 
 
-###
+### edit portfolio
 PUT http://localhost:8080/portfolio/8
 Content-Type: application/json
 
 {
   "id": 8,
-  "name": "portfel8",
-  "description": "testowy portfel",
-  "userId": 6
+  "name": "portfel12",
+  "description": "testowy portfel12",
+  "userId": 11
 }
 
 
-###
-DELETE http://localhost:8080/portfolio/4
+### delete portfolio
+DELETE http://localhost:8080/portfolio/6
 
 
 ### get all portfolio of user
-GET http://localhost:8080/portfolio/all/3
+GET http://localhost:8080/portfolio/all/11
 
 ### get current value of portfolio
 GET http://localhost:8080/portfolio/1/value
 
 ### get profit gain from portfolio
-GET http://localhost:8080/portfolio/5/profit
+GET http://localhost:8080/portfolio/1/profit

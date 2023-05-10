@@ -1,9 +1,9 @@
 package pl.coderslab.legoinvestormanager.portfolio;
 
 import org.springframework.stereotype.Service;
-import pl.coderslab.legoinvestormanager.investment.Investment;
 import pl.coderslab.legoinvestormanager.investment.InvestmentDTO;
 import pl.coderslab.legoinvestormanager.investment.InvestmentService;
+import pl.coderslab.legoinvestormanager.user.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -13,11 +13,13 @@ import java.util.stream.Collectors;
 public class PortfolioService {
 
     private final PortfolioRepository repository;
+    private final UserRepository userRepository;
     private final InvestmentService investmentService;
     private final PortfolioMapper mapper;
 
-    public PortfolioService(PortfolioRepository repository, InvestmentService investmentService, PortfolioMapper mapper) {
+    public PortfolioService(PortfolioRepository repository, UserRepository userRepository, InvestmentService investmentService, PortfolioMapper mapper) {
         this.repository = repository;
+        this.userRepository = userRepository;
         this.investmentService = investmentService;
         this.mapper = mapper;
     }
@@ -29,6 +31,8 @@ public class PortfolioService {
 
     public PortfolioDTO create(PortfolioDTO portfolioDTO) {
         Portfolio portfolio = mapper.mapDTOToPortfolio(portfolioDTO);
+        portfolio.setUser(userRepository.findById(portfolioDTO.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User not found")));
         return mapper.mapPortfolioToDTO(repository.save(portfolio));
     }
 
