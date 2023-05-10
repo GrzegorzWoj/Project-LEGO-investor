@@ -5,12 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.security.access.AuthorizationServiceException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import pl.coderslab.legoinvestormanager.role.Role;
+import pl.coderslab.legoinvestormanager.role.RoleRepository;
 
 import javax.persistence.*;
+import javax.security.sasl.AuthenticationException;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -29,7 +35,7 @@ public class User {
     @Schema(description = "Unique nickname of the User. Also used to log into the app.",
             example = "User123", required = true)
     @Size(min = 3, max = 20)
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String login;
     @Schema(description = "Password used by the user to log into the app.",
             example = "hardPassword1!", required = true)
@@ -38,7 +44,7 @@ public class User {
     @Schema(description = "Email of the User. Should be correctly formatted e-mail.",
             example = "sample_mail@email.com", required = true)
     @Email
-    @Column(nullable=false, unique=true)
+    @Column(nullable = false, unique = true)
     private String email;
     private String firstName;
     private String lastName;
@@ -48,19 +54,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
+    @PreRemove
+    @PreUpdate
+    private void preventUnauthorizedEdit() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
-
-    protected void hashPassword() {
-        this.salt = BCrypt.gensalt();
-        this.password = (BCrypt.hashpw(this.password, this.salt));
+        if (!this.login.equals(name) && authorities.stream().noneMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+            throw new AuthorizationServiceException("You don`t have permission to edit this user.");
+        }
     }
-//TODO @PreRemove / @PreUpdate / @PrePersist (probably do not need code below)
-//    protected User(String login, String password, Set<Role> roles) {
-//        this.login = login;
-//        this.password = password;
-//        this.roles = roles;
-//    }
-
-
 
 }

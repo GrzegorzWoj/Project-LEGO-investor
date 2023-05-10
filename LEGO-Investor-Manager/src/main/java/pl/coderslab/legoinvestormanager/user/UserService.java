@@ -50,6 +50,7 @@ public class UserService {
         }
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));;
         user.setRoles(usr.getRoles());
+        user.setLogin(usr.getLogin());
         repository.save(user);
         return mapper.mapUserToDTO(user);
     }
