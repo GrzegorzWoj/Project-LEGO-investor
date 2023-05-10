@@ -8,7 +8,7 @@ import lombok.Setter;
 public class LegoSetDTO {
 
     private Long id;
-    private Long legoSetNumber;
+    private String legoSetNumber;
     private String legoSetName;
     private String series;
     private int releaseYear;

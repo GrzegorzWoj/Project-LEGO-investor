@@ -29,7 +29,7 @@ public class LegoSetController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public LegoSetDTO createLegoSet(@RequestBody LegoSetDTO legoSetDTO) {
-        return service.create(legoSetDTO);
+        return service.create(legoSetDTO.getLegoSetNumber());
     }
 
     @PutMapping("/{id}")

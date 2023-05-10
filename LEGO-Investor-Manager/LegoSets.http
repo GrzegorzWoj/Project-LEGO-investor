@@ -5,15 +5,7 @@ POST http://localhost:8080/legoSet
 Content-Type: application/json
 
 {
-  "legoSetNumber": 42110,
-  "legoSetName": "Land Rover Defender",
-  "series": "Technic",
-  "releaseYear": 2019,
-  "amountOfElements": 2573,
-  "amountOfMinifigures": 0,
-  "originalPrice": 949.99,
-  "lowestCurrentPrice": 908.00
-
+  "legoSetNumber": 42110
 }
 
 
