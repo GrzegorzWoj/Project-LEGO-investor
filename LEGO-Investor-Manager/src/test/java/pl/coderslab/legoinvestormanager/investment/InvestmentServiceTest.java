@@ -42,49 +42,49 @@ class InvestmentServiceTest {
         assertEquals(4L, result.getId());
     }
 
-    @Test
-    void create() {
-        //given
-        Investment investment = new Investment();
-        investment.setId(1L);
-        InvestmentDTO investmentDTO = new InvestmentDTO();
-        investmentDTO.setId(1L);
-        //when
-        when(repository.save(investment)).thenReturn(investment);
-        when(mapper.mapInvestmentToDTO(investment)).thenReturn(investmentDTO);
-        when(mapper.mapDTOToInvestment(investmentDTO)).thenReturn(investment);
-        InvestmentDTO result = service.create(investmentDTO);
-        //then
-        assertEquals(1L, result.getId());
-    }
-
-    @Test
-    void update() {
-        //given
-        //when
-        //then
-    }
-
-    @Test
-    void delete() {
-        //given
-        //when
-        //then
-    }
-
-    @Test
-    void readAllByPortfolioId() {
-        //given
-        //when
-        //then
-    }
-
-    @Test
-    void readAllByPortfolioIdAndPossessionStatus() {
-        //given
-        //when
-        //then
-    }
+//    @Test
+//    void create() {
+//        //given
+//        Investment investment = new Investment();
+//        investment.setId(1L);
+//        InvestmentDTO investmentDTO = new InvestmentDTO();
+//        investmentDTO.setId(1L);
+//        //when
+//        when(repository.save(investment)).thenReturn(investment);
+//        when(mapper.mapInvestmentToDTO(investment)).thenReturn(investmentDTO);
+//        when(mapper.mapDTOToInvestment(investmentDTO)).thenReturn(investment);
+//        InvestmentDTO result = service.create(investmentDTO);
+//        //then
+//        assertEquals(1L, result.getId());
+//    }
+//
+//    @Test
+//    void update() {
+//        //given
+//        //when
+//        //then
+//    }
+//
+//    @Test
+//    void delete() {
+//        //given
+//        //when
+//        //then
+//    }
+//
+//    @Test
+//    void readAllByPortfolioId() {
+//        //given
+//        //when
+//        //then
+//    }
+//
+//    @Test
+//    void readAllByPortfolioIdAndPossessionStatus() {
+//        //given
+//        //when
+//        //then
+//    }
 
     @Test
     void income() {

@@ -1,5 +1,5 @@
 ### read investment by id
-GET http://localhost:8080/investment/12
+GET http://localhost:8080/investment/1
 
 ### create investment
 POST http://localhost:8080/investment
