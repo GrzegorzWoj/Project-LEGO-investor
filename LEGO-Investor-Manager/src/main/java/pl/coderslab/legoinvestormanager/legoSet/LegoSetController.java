@@ -53,7 +53,7 @@ public class LegoSetController {
             @ApiResponse(responseCode = "302", description = "successfully updated price",
                     content = @Content(schema = @Schema(implementation = LegoSetDTO.class))),
             @ApiResponse(responseCode = "500", description = "LegoSet not found")})
-    @PutMapping("/{id}/price")
+    @PutMapping("/price/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public String updateLegoSetPrice(@PathVariable Long id) {
         return service.updateCurrentPrice(id);
@@ -64,7 +64,7 @@ public class LegoSetController {
             @ApiResponse(responseCode = "302", description = "successfully updated prices",
                     content = @Content(schema = @Schema(implementation = LegoSetDTO.class))),
             @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.")})
-    @PutMapping("/all/price")
+    @PutMapping("/price/all")
     @ResponseStatus(HttpStatus.FOUND)
     public List<String> updateAllLegoSetPrices() {
         return service.readAll().stream()
@@ -77,7 +77,7 @@ public class LegoSetController {
             @ApiResponse(responseCode = "302", description = "successfully updated prices",
                     content = @Content(schema = @Schema(implementation = LegoSetDTO.class))),
             @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.")})
-    @PutMapping("/all/{id}/price")
+    @PutMapping("/price/all/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public List<String> updateAllPricesByPortfolioId(@PathVariable Long id) {
         return service.readAllByPortfolioId(id).stream()

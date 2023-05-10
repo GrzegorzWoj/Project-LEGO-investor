@@ -40,10 +40,13 @@ public class SecurityConfig {
                                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                                .antMatchers("/auth/**").permitAll()
-                                .antMatchers(HttpMethod.GET, "/**").permitAll()
-                                .antMatchers(HttpMethod.POST, "/user").permitAll()
-                                .anyRequest().authenticated());
+                        .antMatchers("/auth/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/user").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/legoSet/price/**").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/legoSet/{id}").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/legoSet/**").hasRole("ADMIN")
+                        .anyRequest().authenticated());
         return http.build();
     }
 

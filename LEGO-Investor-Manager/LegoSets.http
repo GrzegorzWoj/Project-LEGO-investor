@@ -10,12 +10,12 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:8080/legoSet/7
+PUT http://localhost:8080/legoSet/3
 Content-Type: application/json
 
 {
-  "id": 7,
-  "legoSetNumber": 31097,
+  "id": 3,
+  "legoSetNumber": 31098,
   "legoSetName": "Sklep zoologiczny i kawiarenka",
   "series": "Creator 3w1",
   "releaseYear": 2019,
@@ -34,10 +34,10 @@ GET http://localhost:8080/legoSet/all
 
 
 ### update price of one set
-PUT http://localhost:8080/legoSet/2/price
+PUT http://localhost:8080/legoSet/price/3
 
 ### update price of all sets
-PUT http://localhost:8080/legoSet/all/price
+PUT http://localhost:8080/legoSet/price/all
 
 ### update price of all sets in portfolio
-PUT http://localhost:8080/legoSet/all/5/price
+PUT http://localhost:8080/legoSet/price/all/5
