@@ -30,10 +30,16 @@ public class LegoSetService {
                 .orElseThrow(() -> new EntityNotFoundException("LegoSet not found")));
     }
 
-    public LegoSetDTO create(LegoSetDTO legoSetDTO) {
+    public LegoSetDTO create(String legoSetNumber) {
+        LegoSetDTO legoSetDTO = loadLegoSetDataFromUrl(legoSetNumber);
         LegoSet legoSet = mapper.mapDTOToLegoSet(legoSetDTO);
         return mapper.mapLegoSetToDTO(repository.save(legoSet));
     }
+
+//    public LegoSetDTO create(LegoSetDTO legoSetDTO) {
+//        LegoSet legoSet = mapper.mapDTOToLegoSet(legoSetDTO);
+//        return mapper.mapLegoSetToDTO(repository.save(legoSet));
+//    }
 
     public LegoSetDTO update(Long id, LegoSetDTO legoSetDTO) {
         LegoSet legoSet = mapper.mapDTOToLegoSet(legoSetDTO);
@@ -69,7 +75,7 @@ public class LegoSetService {
     public String updateCurrentPrice(Long id) {
         LegoSet legoSet = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("LegoSet not found"));
-        Long legoSetNumber = legoSet.getLegoSetNumber();
+        String legoSetNumber = legoSet.getLegoSetNumber();
         String url = "https://promoklocki.pl/" + legoSetNumber;
         try {
             Document doc = Jsoup.connect(url)
@@ -79,35 +85,52 @@ public class LegoSetService {
             legoSet.setLowestCurrentPrice(Double.parseDouble(price.substring(0, price.length() - 2).replace(',', '.')));
             repository.save(legoSet);
             return legoSetNumber + " - zaktualizowano cenę";
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             return legoSetNumber + " - Nie znaleziono źródła ceny: " + url;
 //            FOR THE FUTURE: content of exception should be saved in log files
 //            throw new NotFoundException(e.getMessage());
         }
     }
 
-    //TODO change createLegoSet method to upload all lego set information from url
-//    private LegoSetDTO loadLegoSetDataFromUrl(String legoSetNumber) {
-//        LegoSetDTO legoSet = new LegoSetDTO();
-//        String url = "https://promoklocki.pl/" + legoSetNumber;
-//        try {
-//            Document doc = Jsoup.connect(url)
-//                    .userAgent("Mozilla" /* /5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0"*/)
-//                    .get();
-//            String price = doc.select("div.col-md-6 dd a.bprice").text();
-//            legoSet.setLowestCurrentPrice(Double.parseDouble(price.substring(0, price.length() - 2).replace(',', '.')));
-//            legoSet.setLegoSetName();
-//            legoSet.setSeries();
-//            legoSet.setReleaseYear();
-//            legoSet.setAmountOfElements();
-//            legoSet.setAmountOfMinifigures();
-//            legoSet.setOriginalPrice();
-//            legoSet.setLowestCurrentPrice();
-//            return legoSet;
-//        } catch (IOException e) {
-//            return legoSet;
-//        }
-//    }
+    private LegoSetDTO loadLegoSetDataFromUrl(String legoSetNumber) {
+        LegoSetDTO legoSet = new LegoSetDTO();
+        legoSet.setLegoSetNumber(legoSetNumber);
+        String url = "https://promoklocki.pl/" + legoSetNumber;
+        try {
+            Document doc = Jsoup.connect(url)
+                    .userAgent("Mozilla" /* /5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0"*/)
+                    .get();
+            String legoSetName = doc.select("div.table-responsive td:contains(Nazwa polska)").next().text();
+            String series = doc.select("div.table-responsive td:contains(Seria)").next().text();
+            String releaseYear = doc.select("div.table-responsive td:contains(Rok wydania)").next().text();
+            String amountOfElements = doc.select("div.table-responsive td:contains(Liczba elementów)").next().text();
+            String amountOfMinifigures = doc.select("div.table-responsive td:contains(Liczba minifigurek)").next().text();
+            String originalPrice = doc.select("div.table-responsive td:contains(Cena katalogowa)").next().text();
+            String currentPrice = doc.select("div.table-responsive td:contains(Aktualnie najniższa cena)").next().text();
+
+            legoSet.setLegoSetName(legoSetName);
+            legoSet.setSeries(series);
+            if (!(releaseYear.equals("-") || releaseYear.equals(""))) {
+                legoSet.setReleaseYear(Integer.parseInt(releaseYear));
+            }
+            if (!(amountOfElements.equals("-") || releaseYear.equals(""))) {
+                legoSet.setAmountOfElements(Integer.parseInt(amountOfElements));
+            }
+            if (!(amountOfMinifigures.equals("-") || releaseYear.equals(""))) {
+                legoSet.setAmountOfMinifigures(Integer.parseInt(amountOfMinifigures));
+            }
+            if (!(originalPrice.equals("-") || releaseYear.equals(""))) {
+                legoSet.setOriginalPrice(Double.parseDouble(originalPrice.substring(0, originalPrice.length() - 2).replace(',', '.')));
+            }
+            if (!(currentPrice.equals("-") || releaseYear.equals(""))) {
+                legoSet.setLowestCurrentPrice(Double.parseDouble(currentPrice.substring(0, currentPrice.length() - 2).replace(',', '.')));
+            }
+
+            return legoSet;
+        } catch (IOException | NullPointerException e) {
+            return legoSet;
+        }
+    }
 
 
 }

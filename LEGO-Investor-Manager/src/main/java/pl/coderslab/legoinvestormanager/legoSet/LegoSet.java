@@ -16,7 +16,7 @@ public class LegoSet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
-    private Long legoSetNumber;
+    private String legoSetNumber;
     private String legoSetName;
     private String series;
     @Column(columnDefinition = "int default 0")
