@@ -57,7 +57,7 @@ public class User {
         Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         if (!this.login.equals(name) && authorities.stream().noneMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
-            throw new AuthorizationServiceException("You don`t have permission to edit this user.");
+            throw new AuthorizationServiceException("User can only edit his own account.");
         }
     }
 
