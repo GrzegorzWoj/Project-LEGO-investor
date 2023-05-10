@@ -45,14 +45,4 @@ public class UserController {
     }
 
 
-// just to test for now
-//    @GetMapping("/pass/{id}/{candidatePass}")
-//    public String checkPassword(@PathVariable Long id, @PathVariable String candidatePass) {
-//        if (!BCrypt.checkpw(candidatePass, service.read(id).getPassword())) {
-//            return "NO OK";
-//        }
-//        return "OK";
-//    }
-
-
 }
