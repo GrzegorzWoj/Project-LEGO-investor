@@ -1,35 +1,35 @@
 ### read user by id
-GET http://localhost:8080/user/13
+GET http://localhost:8080/user/2
 
 ### create user
 POST http://localhost:8080/user
 Content-Type: application/json
 
 {
-  "login": "user3",
+  "login": "toEdit",
   "password": "test",
-  "email": "user3@mail.pl",
-  "firstName": "user3",
-  "lastName": "user"
+  "email": "toedit@onet.pl",
+  "firstName": "toedit",
+  "lastName": "anddelete"
 }
 
 
 ### edit user
-PUT http://localhost:8080/user/22
+PUT http://localhost:8080/user/5
 Content-Type: application/json
 
 {
-  "id": 22,
-  "login": "user4",
-  "password": "test2",
-  "email": "mail5@onet.pl",
+  "id": 5,
+  "login": "user5",
+  "password": "test5",
+  "email": "mail5@onet.com",
   "firstName": "tester2",
   "lastName": "zmian"
 }
 
 
 ### delete user
-DELETE http://localhost:8080/user/22
+DELETE http://localhost:8080/user/5
 
 
 ### read all users
@@ -41,8 +41,8 @@ POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-  "login": "admin",
-  "password": "admin"
+  "login": "user1",
+  "password": "test"
 }
 
 ### who is logged?

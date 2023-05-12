@@ -1,43 +1,44 @@
+### read lego_set by id
 GET http://localhost:8080/legoSet/5
 
-###
+### create lego_set
 POST http://localhost:8080/legoSet
 Content-Type: application/json
 
 {
-  "legoSetNumber": 42110
+  "legoSetNumber": 31098
 }
 
 
-###
+### edit lego_set
 PUT http://localhost:8080/legoSet/3
 Content-Type: application/json
 
 {
-  "id": 3,
+  "id": 13,
   "legoSetNumber": 31098,
-  "legoSetName": "Sklep zoologiczny i kawiarenka",
+  "legoSetName": "Domek na wsi",
   "series": "Creator 3w1",
   "releaseYear": 2019,
-  "amountOfElements": 969,
-  "amountOfMinifigures": 3,
-  "originalPrice": 329.99,
-  "lowestCurrentPrice": null
+  "amountOfElements": 305,
+  "amountOfMinifigures": 2,
+  "originalPrice": 139.99,
+  "lowestCurrentPrice": 197.75
 }
 
 
-###
-DELETE http://localhost:8080/legoSet/7
+### delete lego_set
+DELETE http://localhost:8080/legoSet/14
 
-###
+### read all lego_sets
 GET http://localhost:8080/legoSet/all
 
 
-### update price of one set
-PUT http://localhost:8080/legoSet/price/3
+### update price of one set by id
+PUT http://localhost:8080/legoSet/price/14
 
 ### update price of all sets
 PUT http://localhost:8080/legoSet/price/all
 
-### update price of all sets in portfolio
-PUT http://localhost:8080/legoSet/price/all/5
+### update price of all sets in portfolio by portf. id
+PUT http://localhost:8080/legoSet/price/all/4

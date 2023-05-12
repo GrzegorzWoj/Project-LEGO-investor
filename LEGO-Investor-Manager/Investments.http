@@ -6,39 +6,39 @@ POST http://localhost:8080/investment
 Content-Type: application/json
 
 {
-  "purchasePrice": 1200.0,
-  "purchaseDate": "2023-02-19",
+  "purchasePrice": 320,
+  "purchaseDate": "2021-08-12",
   "sellingPrice": 0,
-  "sellingDate": "2023-03-20",
+  "sellingDate": null,
   "possessionStatus": 1,
-  "additionalInfo": "test",
-  "portfolioId": 4,
-  "legoSetId": 1
+  "additionalInfo": null,
+  "portfolioId": 1,
+  "legoSetId": 2
 }
 
 
 ### update investment
-PUT http://localhost:8080/investment/5
+PUT http://localhost:8080/investment/1
 Content-Type: application/json
 
 {
-  "id": 5,
-  "purchasePrice": 1200.5,
-  "purchaseDate": "2023-02-19",
-  "sellingPrice": 1550,
+  "id": 1,
+  "purchasePrice": 520.50,
+  "purchaseDate": "2021-12-19",
+  "sellingPrice": 990.98,
   "sellingDate": "2023-04-29",
   "possessionStatus": -1,
   "additionalInfo": null,
-  "portfolioId": 1,
-  "legoSetId": 2
+  "portfolioId": 4,
+  "legoSetId": 1
 }
 
 ### delete investment
 DELETE http://localhost:8080/investment/5
 
 
-### get all investments by portfolio id
+### get all investments from portfolio by portf. id
 GET http://localhost:8080/investment/all/1
 
 ### show all profits info for single investment
-GET http://localhost:8080/investment/4/profit
+GET http://localhost:8080/investment/11/profit

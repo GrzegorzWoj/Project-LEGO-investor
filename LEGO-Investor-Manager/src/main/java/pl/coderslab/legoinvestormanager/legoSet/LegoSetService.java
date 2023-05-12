@@ -65,10 +65,11 @@ public class LegoSetService {
     public List<LegoSetDTO> readAllByPortfolioId(Long id) {
         List<InvestmentDTO> investmentDTOList = investmentService.readAllByPortfolioId(id);
         return investmentDTOList.stream()
-                .map(l -> read(l.getLegoSetId()))
+                .map(InvestmentDTO::getLegoSetId)
 //                .map(l -> mapper.mapLegoSetToDTO(repository.findById(l.getLegoSetId())
 //                        .orElseThrow(() -> new EntityNotFoundException("LegoSet not found"))))
                 .distinct()
+                .map(this::read)
                 .collect(Collectors.toList());
     }
 
