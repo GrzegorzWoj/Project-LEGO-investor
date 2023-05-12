@@ -18,7 +18,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-//@NoArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -44,7 +43,7 @@ public class User {
     private String email;
     private String firstName;
     private String lastName;
-    @ManyToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
