@@ -50,12 +50,20 @@ public class InvestmentController {
 
     @GetMapping("/{id}/profit")
     public String getInvestmentProfit(@PathVariable Long id) {
-        if (service.read(id).getPossessionStatus() != -1) {
-            return "Zestaw nie został jeszcze sprzedany.";
+        double income = Math.round(service.income(id) * 100.0) / 100.0;
+        double returnRate = Math.round(service.returnRate(id) * 100.0) / 100.0;
+        double annualReturnRate = Math.round(service.annualReturnRate(id) * 100.0) / 100.0;
+
+        if (service.read(id).getPossessionStatus() == -1) {
+            return "Zysk ze sprzedaży: " + income + " zł \n" +
+                    "Stopa zwrotu: " + returnRate + " % \n" +
+                    "Roczna stopa zwrotu: " + annualReturnRate + " %";
+        } else if (service.read(id).getPossessionStatus() == 1) {
+            return "Szacowany zysk ze sprzedaży: " + income + " zł \n" +
+                    "Szacowana stopa zwrotu: " + returnRate + " % \n" +
+                    "Szacowana roczna stopa zwrotu: " + annualReturnRate + " %";
         }
-        return "Zysk ze sprzedaży: " + Math.round(service.income(id) * 100.0) / 100.0 + " zł \n" +
-               "Stopa zwrotu: " + Math.round(service.returnRate(id) * 100.0) / 100.0 + " % \n" +
-               "Roczna stopa zwrotu: " + Math.round(service.annualReturnRate(id) * 100.0) / 100.0 + " %";
+        return "Zmień status inwestycji aby wyliczyć zysk.";
     }
 
 }

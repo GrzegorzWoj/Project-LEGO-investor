@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.legoinvestormanager.portfolio.PortfolioRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,6 +62,9 @@ public class InvestmentService {
     }
 
     public double income(Long id) {
+        if (read(id).getPossessionStatus() == 1) {
+            return read(id).getLowestCurrentPrice() - read(id).getPurchasePrice();
+        }
         return read(id).getSellingPrice() - read(id).getPurchasePrice();
     }
 
@@ -69,7 +73,11 @@ public class InvestmentService {
     }
 
     public double annualReturnRate(Long id) {
+        if (read(id).getPossessionStatus() == 1) {
+            double years = read(id).getPurchaseDate().until(LocalDate.now(), ChronoUnit.DAYS) / 365.25;
+            return returnRate(id) / years;
+        }
         double years = read(id).getPurchaseDate().until(read(id).getSellingDate(), ChronoUnit.DAYS) / 365.25;
-        return (returnRate(id) / years);
+        return returnRate(id) / years;
     }
 }
