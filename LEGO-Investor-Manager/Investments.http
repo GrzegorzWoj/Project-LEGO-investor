@@ -41,4 +41,4 @@ DELETE http://localhost:8080/investment/5
 GET http://localhost:8080/investment/all/1
 
 ### show all profits info for single investment
-GET http://localhost:8080/investment/11/profit
+GET http://localhost:8080/investment/12/profit

@@ -36,4 +36,4 @@ GET http://localhost:8080/portfolio/all/1
 GET http://localhost:8080/portfolio/1/value
 
 ### get profit gain from portfolio
-GET http://localhost:8080/portfolio/4/profit
+GET http://localhost:8080/portfolio/1/profit
