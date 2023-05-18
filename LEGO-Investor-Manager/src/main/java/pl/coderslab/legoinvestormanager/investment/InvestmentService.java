@@ -1,11 +1,13 @@
 package pl.coderslab.legoinvestormanager.investment;
 
 import org.springframework.stereotype.Service;
+import pl.coderslab.legoinvestormanager.portfolio.Portfolio;
 import pl.coderslab.legoinvestormanager.portfolio.PortfolioRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +63,18 @@ public class InvestmentService {
                 .collect(Collectors.toList());
     }
 
+    public List<InvestmentDTO> readAllByUserId(Long id) {
+        List<Portfolio> portfolioList = portfolioRepository.findAllByUserId(id);
+        List<List<Investment>> portfInvestList = portfolioList.stream()
+                .map(p -> repository.findAllByPortfolioId(p.getId()))
+                .toList();
+        List<Investment> investmentList = new ArrayList<>();
+        portfInvestList.forEach(investmentList::addAll);
+        return investmentList.stream()
+                .map(mapper::mapInvestmentToDTO)
+                .collect(Collectors.toList());
+    }
+
     public double income(Long id) {
         if (read(id).getPossessionStatus() == 1) {
             return read(id).getLowestCurrentPrice() - read(id).getPurchasePrice();
@@ -79,5 +93,13 @@ public class InvestmentService {
         }
         double years = read(id).getPurchaseDate().until(read(id).getSellingDate(), ChronoUnit.DAYS) / 365.25;
         return returnRate(id) / years;
+    }
+
+    public List<InvestmentDTO> getProfitableSetsOfUser(Long id) {
+        List<InvestmentDTO> allSetsOfUsers = readAllByUserId(id);
+        return allSetsOfUsers.stream()
+                .filter(i -> i.getPossessionStatus() == 1)
+                .filter(i -> (i.getOriginalPrice() <= i.getLowestCurrentPrice() || (returnRate(i.getId()) >= 30.0)))
+                .collect(Collectors.toList());
     }
 }

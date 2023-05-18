@@ -6,7 +6,7 @@ POST http://localhost:8080/legoSet
 Content-Type: application/json
 
 {
-  "legoSetNumber": 31098
+  "legoSetNumber": 73285971
 }
 
 
