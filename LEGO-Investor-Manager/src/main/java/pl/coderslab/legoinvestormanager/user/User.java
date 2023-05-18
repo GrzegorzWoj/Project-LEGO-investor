@@ -34,6 +34,7 @@ public class User {
     private String login;
     @Schema(description = "Password used by the user to log into the app.",
             example = "hardPassword1!", required = true)
+    @Column(nullable = false)
     private String password;
     private String salt;
     @Schema(description = "Email of the User. Should be correctly formatted e-mail.",

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/investment")
@@ -64,6 +65,17 @@ public class InvestmentController {
                     "Szacowana roczna stopa zwrotu: " + annualReturnRate + " %";
         }
         return "Zmień status inwestycji aby wyliczyć zysk.";
+    }
+
+    @GetMapping("/profitable/user/{id}")
+    public String getProfitableInvestments(@PathVariable Long id) {
+        List<String> resultList = service.getProfitableSetsOfUser(id).stream()
+                .map(i -> i.getLegoSetNumber() + "- Obecna/Katalogowa: " + i.getLowestCurrentPrice() + " / " + i.getOriginalPrice()
+                        + ", Zysk: " + Math.round(service.income(i.getId())* 100.0) / 100.0
+                        + ", RSZ: " + Math.round(service.returnRate(i.getId())* 100.0) / 100.0
+                        + "%, RRSZ: " + Math.round(service.annualReturnRate(i.getId())* 100.0) / 100.0 + "% \n")
+                .collect(Collectors.toList());
+        return String.join("", resultList);
     }
 
 }

@@ -18,10 +18,13 @@ public class UserDTO {
     @NotBlank
     @Schema(description = "Unique nickname of the User. Also used to log into the app.",
             example = "User123", required = true)
+    @NotBlank
     @Size(min = 3, max = 20)
     private String login;
     @Schema(description = "Password used by the user to log into the app.",
             example = "hardPassword1!", required = true)
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String password;
     @Schema(description = "Email of the User. Should be correctly formatted e-mail.",
             example = "sample_mail@email.com", required = true)
