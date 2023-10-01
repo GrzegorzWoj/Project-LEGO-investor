@@ -6,14 +6,14 @@ POST http://localhost:8080/investment
 Content-Type: application/json
 
 {
-  "purchasePrice": 320,
-  "purchaseDate": "2021-08-12",
-  "sellingPrice": 0,
+  "purchasePrice": 825.0,
+  "purchaseDate": "2023-02-16",
+  "sellingPrice": null,
   "sellingDate": null,
   "possessionStatus": 1,
   "additionalInfo": null,
-  "portfolioId": 5,
-  "legoSetId": 15
+  "portfolioId": 1,
+  "legoSetId": 19
 }
 
 
@@ -41,7 +41,7 @@ DELETE http://localhost:8080/investment/5
 GET http://localhost:8080/investment/all/1
 
 ### show all profits info for single investment
-GET http://localhost:8080/investment/11/profit
+GET http://localhost:8080/investment/20/profit
 
-###
-GET http://localhost:8080/investment/profitable/user/1
+### show all profitable investments with estimated profit info
+GET http://localhost:8080/investment/profitable/user/2

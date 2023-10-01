@@ -29,6 +29,7 @@ public class InvestmentDTO {
     private Long portfolioId;
     private Long legoSetId;
     private long legoSetNumber;
+    private String legoSetName;
     private double originalPrice;
     private double lowestCurrentPrice;
 

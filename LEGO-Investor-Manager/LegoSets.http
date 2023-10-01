@@ -6,7 +6,7 @@ POST http://localhost:8080/legoSet
 Content-Type: application/json
 
 {
-  "legoSetNumber": 73285971
+  "legoSetNumber": 76895
 }
 
 
@@ -41,4 +41,4 @@ PUT http://localhost:8080/legoSet/price/14
 PUT http://localhost:8080/legoSet/price/all
 
 ### update price of all sets in portfolio by portf. id
-PUT http://localhost:8080/legoSet/price/all/4
+PUT http://localhost:8080/legoSet/price/all/1

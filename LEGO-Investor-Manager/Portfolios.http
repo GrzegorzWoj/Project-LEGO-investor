@@ -6,9 +6,9 @@ POST http://localhost:8080/portfolio
 Content-Type: application/json
 
 {
-  "name": "Best_Portfolio",
-  "description": "most value portfolio",
-  "userId": 1
+  "name": "Główny portfel",
+  "description": "",
+  "userId": 2
 }
 
 

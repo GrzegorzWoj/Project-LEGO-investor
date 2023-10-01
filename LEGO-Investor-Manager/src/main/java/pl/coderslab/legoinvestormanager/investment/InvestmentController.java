@@ -70,8 +70,9 @@ public class InvestmentController {
     @GetMapping("/profitable/user/{id}")
     public String getProfitableInvestments(@PathVariable Long id) {
         List<String> resultList = service.getProfitableSetsOfUser(id).stream()
-                .map(i -> i.getLegoSetNumber() + "- Obecna/Katalogowa: " + i.getLowestCurrentPrice() + " / " + i.getOriginalPrice()
-                        + ", Zysk: " + Math.round(service.income(i.getId())* 100.0) / 100.0
+                .map(i -> i.getLegoSetNumber() + " - " + i.getLegoSetName() + "\n"
+                        + "\t Obecna/Katalogowa/Kupna: " + i.getLowestCurrentPrice() + " / " + i.getOriginalPrice() + " / " + i.getPurchasePrice()
+                        + " --- Zysk: " + Math.round(service.income(i.getId())* 100.0) / 100.0
                         + ", RSZ: " + Math.round(service.returnRate(i.getId())* 100.0) / 100.0
                         + "%, RRSZ: " + Math.round(service.annualReturnRate(i.getId())* 100.0) / 100.0 + "% \n")
                 .collect(Collectors.toList());
