@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 
 @RestController
@@ -80,9 +82,30 @@ public class LegoSetController {
     @PutMapping("/price/all/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public List<String> updateAllPricesByPortfolioId(@PathVariable Long id) {
-        return service.readAllByPortfolioId(id).stream()
-                .map(l -> service.updateCurrentPrice(l.getId()))
-                .collect(Collectors.toList());
+        return service.readAllByPortfolioId(id).parallelStream()
+                        .map(l -> service.updateCurrentPrice(l.getId()))
+                        .collect(Collectors.toList());
     }
+
+    //just in case
+    /*
+    @Operation(summary = "Update prices in portfolio", description = "Update lowest price of all LEGO Sets in portfolio.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "successfully updated prices",
+                    content = @Content(schema = @Schema(implementation = LegoSetDTO.class))),
+            @ApiResponse(responseCode = "500", description = "Something goes wrong. Some of the prices may not have been updated.")})
+    @PutMapping("/price/all/{id}/customThread")
+    @ResponseStatus(HttpStatus.FOUND)
+    public List<String> updateAllPricesByPortfolioIdCustomThread(@PathVariable Long id) throws ExecutionException, InterruptedException {
+        ForkJoinPool customThreadPool = new ForkJoinPool(4);
+        return customThreadPool.submit(
+                () -> service.readAllByPortfolioId(id).parallelStream()
+                .map(l -> service.updateCurrentPrice(l.getId()))
+                .collect(Collectors.toList())).get();
+    }
+    */
+
+
+
 
 }
